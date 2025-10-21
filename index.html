@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Косметические Услуги</title>
+    <!-- Подключение Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            color: #555;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #c2185b;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+        h2 {
+            font-size: 2.5rem;
+        }
+        h3 {
+            font-size: 2rem;
+        }
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        a {
+            font-weight: 500;
+            color: #e91e63;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #c2185b;
+            text-decoration: underline;
+        }
+        button {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Навбар */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #c2185b;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links a {
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* Герой-секция (обновлённая с contain для полного отображения фона) */
+        .hero {
+            position: relative; /* Для позиционирования оверлея и контента */
+            background: url('https://th.bing.com/th/id/OIG4.j.z4TKUEPTfLXlllrzfe?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn') no-repeat center center / contain; /* Изменено на contain для полного отображения изображения без обрезки */
+            padding: 100px 20px 60px;
+            margin-top: 60px; /* Учитываем фиксированный навбар */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow: hidden; /* Предотвращает выход элементов за границы */
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(252, 228, 236, 0.7), rgba(248, 187, 217, 0.7)); /* Полупрозрачный градиентный оверлей для читаемости текста */
+            z-index: 1; /* Оверлей под контентом */
+        }
+        .hero-content,
+        .cosmetologist {
+            position: relative; /* Текст и фото поверх оверлея */
+            z-index: 2; /* Выше оверлея */
+        }
+        .hero-content {
+            margin-bottom: 40px; /* Отступ перед косметологом */
+        }
+        .hero h1 {
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.3rem; /* Увеличенный размер текста */
+            margin-bottom: 20px; /* Немного больше отступа для красоты */
+        }
+        .cosmetologist {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .cosmetologist img {
+            width: 250px;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Секции */
+        section {
+            padding: 60px 0;
+        }
+        .services {
+            background-color: #fff;
+        }
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px; /* Увеличен для компенсации подъёма на 5px при hover и предотвращения визуального пересечения */
+        }
+        .service-item {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Одинаковая высота для всех карточек */
+            overflow: hidden; /* Обрезает элементы, выходящие за границы, предотвращая пересечения при hover */
+        }
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .service-item img {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            display: block; /* Для центрирования */
+            margin: 0 auto 15px; /* Центрирует по горизонтали и сохраняет нижний отступ */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .service-item img:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .service-item p:first-of-type {
+            flex-grow: 1; /* Описание растягивается, чтобы цена была внизу */
+        }
+        .contact {
+            background-color: #fce4ec;
+            text-align: center;
+        }
+
+        /* Новый раздел Акции */
+        .promotions {
+            background-color: #fce4ec; /* Лёгкий розовый фон для выделения, как у контактов */
+            padding: 60px 0;
+        }
+        .promotions-container {
+            display: flex;
+            justify-content: center; /* Центрируем карточку */
+            align-items: flex-start;
+        }
+        .promo-item {
+            max-width: 350px; /* Ограничение ширины для красоты */
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: auto; /* Не фиксируем высоту, так как одна карточка */
+            overflow: hidden;
+        }
+        .promo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .promo-item img {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .promo-item img:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .promo-item p:first-of-type {
+            flex-grow: 1;
+        }
+
+        /* Футер */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1.1rem; /* На мобильных чуть меньше для читаемости */
+            }
+            nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+            .nav-links {
+                margin-top: 10px;
+            }
+            .nav-links li {
+                margin-left: 0;
+                margin-right: 20px;
+            }
+            .service-grid {
+                grid-template-columns: 1fr;
+                gap: 40px; /* Увеличен для consistency на мобильных и предотвращения пересечений */
+            }
+            .cosmetologist img {
+                width: 150px;
+            }
+            .service-item img {
+                width: 150px; /* Уменьшаем картинки на мобильных */
+                display: block; /* Для центрирования */
+                margin: 0 auto 15px; /* Центрируем */
+            }
+            .promotions-container {
+                flex-direction: column; /* На мобильных карточка в колонке, но всё равно центрируется */
+            }
+            .promo-item {
+                max-width: 100%; /* Полная ширина на мобильных */
+            }
+            .promo-item img {
+                width: 150px; /* Уменьшаем картинку */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Косметические Услуги</div>
+            <ul class="nav-links">
+                <li><a href="#promotions" onclick="scrollToSection('promotions'); return false;">Акции</a></li> <!-- Новая ссылка на Акции -->
+                <li><a href="#services" onclick="scrollToSection('services'); return false;">Услуги</a></li>
+                <li><a href="#contact" onclick="scrollToSection('contact'); return false;">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Ваш идеальный образ</h1>
+                <p>Профессиональные косметические услуги для красоты и ухода за кожей.</p>
+                <p>Приём осуществляется по адресу: Нижняя первомайская, дом 83</p>
+            </div>
+            <div class="cosmetologist">
+                <img src="file:///D:/%D0%A1%D0%B0%D0%B9%D1%82%D1%8B/%D0%A4%D0%BE%D1%82%D0%BE/%D0%9E%D0%BB%D1%8C%D0%B3%D0%B03.jpg" alt="Фотография косметолога">
+                <h3>Ольга Андреевна</h3>
+                <p>Косметолог с медицинским образованием</p>
+            </div>
+        </section>
+
+        <!-- Новый раздел Акции -->
+        <section id="promotions" class="promotions">
+            <div class="container">
+                <h2>Акции</h2>
+                <div class="promotions-container">
+                    <div class="promo-item">
+                        <img src="https://th.bing.com/th/id/OIG2.Wl6ArKhLZ8PjwXSbBs3i?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Холодная плазма">
+                        <h3>Холодная плазма</h3>
+                        <p>Безоперационная блефаропластика, уплотнение, омоложение и осветление кожи.</p>
+                        <p style="color: red;"><strong>Цена: от 3000 руб.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Наши Услуги</h2>
+                <div class="service-grid">
+                    <!-- Остальные карточки услуг остались без изменений -->
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG1.h2P1i5iy8ziJThy21PY0?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Ультразвуковая чистка лица">
+                        <h3>Ультразвуковая чистка лица</h3>
+                        <p>Глубокая чистка кожи с помощью ультразвука для обновления и очищения.</p>
+                        <p><strong>Цена: 2500 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG2.78cSuYEQhMPisgGPLs3Q?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Комбинированная чистка">
+                        <h3>Комбинированная чистка</h3>
+                        <p>Комплексная чистка, сочетающая механические и аппаратные методы.</p>
+                        <p><strong>Цена: 3000 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG2.EF.vbTDcoXD0SBKImq1u?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Миндальный пилинг">
+                        <h3>Миндальный пилинг</h3>
+                        <p>Мягкий пилинг на основе миндальной кислоты для чувствительной кожи.</p>
+                        <p><strong>Цена: 2000 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG3.zbjx40C67H0J2Nk0WHLz?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Желтый пилинг">
+                        <h3>Желтый пилинг</h3>
+                        <p>Химический пилинг для осветления пигментации и выравнивания тона кожи.</p>
+                        <p><strong>Цена: 2500 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG4.Eu2kdKNWXPOpcYThQQwx?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Пилинг Джесснера">
+                        <h3>Пилинг Джесснера</h3>
+                        <p>Многослойный химический пилинг для глубокого очищения и омоложения.</p>
+                        <p><strong>Цена: 2500 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG1.VA2GBldP8zZlcaaMuHPN?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Биоревитализация">
+                        <h3>Биоревитализация</h3>
+                        <p>Инъекции гиалуроновой кислоты для глубокого увлажнения и регенерации.</p>
+                        <p><strong>Цена: от 4500 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG1.FJdt.OriPaK4AtbpI0fx?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Пилинг PRX-T33 1 мл">
+                        <h3>Пилинг PRX-T33<br>1 мл</h3>
+                        <p>Неинъекционный биоревитализант для увлажнения и лифтинга кожи.</p>
+                        <p><strong>Цена: 3500 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG3.79aLgakt9luBzLn05iqB?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Плазмолифтинг 1 пробирка">
+                        <h3>Плазмолифтинг<br>1 пробирка</h3>
+                        <p>PRP-терапия с использованием собственной плазмы крови для омоложения.</p>
+                        <p><strong>Цена: 2500 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG4.xmVxELtbE592lbCo5YmS?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Плазмолифтинг 2 пробирки">
+                        <h3>Плазмолифтинг<br>2 пробирки</h3>
+                        <p>Усиленная PRP-терапия для более интенсивного восстановления кожи.</p>
+                        <p><strong>Цена: 4500 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG2.qQD.SHj_yeGDoC8dUemB?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Контурная пластика">
+                        <h3>Контурная пластика</h3>
+                        <p>Инъекции филлерами для коррекции объема и контуров лица.</p>
+                        <p><strong>Цена: от 6000 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG1.mSH5aShDusV5M5l9xsqQ?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Ботокс: лоб, межбровье, глаза">
+                        <h3>Ботокс: лоб, межбровье, глаза</h3>
+                        <p>Инъекции ботулотоксина для разглаживания мимических морщин.</p>
+                        <p><strong>Цена: 5000 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG1.Bc5jTnq0.pIP4fvnPRG5?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Ботокс в подмышки">
+                        <h3>Ботокс в подмышки</h3>
+                        <p>Инъекции для снижения потоотделения и контроля гипергидроза.</p>
+                        <p><strong>Цена: 9000 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG3.FWsw7jThDI_gGJ0.ijr4?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Плазма + Лаеннек">
+                        <h3>Плазма + Лаеннек</h3>
+                        <p>Комбинированная терапия с плазмой и японским препаратом для детокса.</p>
+                        <p><strong>Цена: 5000 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG1.g8nnc9YkE2yngHWjDcUF?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Увеличение губ">
+                        <h3>Увеличение губ</h3>
+                        <p>Контурная пластика губ филлерами для объема и формы.</p>
+                        <p><strong>Цена: от 6000 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG2.Wl6ArKhLZ8PjwXSbBs3i?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Холодная плазма">
+                        <h3>Холодная плазма</h3>
+                        <p>Ионизированный газ, используемый в косметологии и медицине благодаря своему безопасному и эффективному воздействию на кожу.</p>
+                        <p><strong>Цена: от 5000 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG3.NLCD7nM7rc2sKEPujVzZ?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Мезотерапия кожи головы">
+                        <h3>Мезотерапия кожи головы</h3>
+                        <p>Инъекции витаминов и питательных веществ для укрепления волос.</p>
+                        <p><strong>Цена: от 2500 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG3.kHSVRMQf21VKiG3Jzc5W?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Липолитик липо лаб">
+                        <h3>Липолитик<br>липо лаб</h3>
+                        <p>Инъекционный препарат разрушающий жировые клетки, превращая их в эмульсию, которая затем естественным образом выводится из организма.</p>
+                        <p><strong>Цена: 3000 руб.</strong></p>
+                    </div>
+                    <div class="service-item">
+                        <img src="https://th.bing.com/th/id/OIG2.G6DCf7Da0t1x4SFVn7Ep?w=270&h=270&c=6&r=0&o=5&cb=12&dpr=2&pid=ImgGn" alt="Липолитик стройность">
+                        <h3>Липолитик стройность</h3>
+                        <p>Пептидный препарат для инъекционной коррекции локальных жировых отложений, который помогает создать чёткий овал лица и уменьшить объёмы в других зонах, таких как живот, бока и колени.</p>
+                        <p><strong>Цена: 11000 руб.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Контакты</h2>
+                <p>Телефон: 89647804077</p> <!-- Убрал лишний символ в конце -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'  // Убедимся, что секция начинается сверху, учитывая навбар
+            });
+        }
+
+        // Дополнительно: обработка ссылок в навбаре
+    </script>
+</body>
+</html>
